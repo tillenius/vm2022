@@ -1,0 +1,81 @@
+BODY {
+  background-image: url("bg.jpg");
+  color: black;
+}
+INPUT {
+  font: 20px sans-serif;
+}
+TD {
+  font: 16px sans-serif;
+  border: solid black 1px;
+  padding: 6px 10px 6px 10px;
+}
+TD.gamehead {
+  font-weight: bold;
+  vertical-align: bottom;
+  white-space: nowrap;
+  text-align: center;
+  background: #EEEEEE;
+}
+TD.standlist {
+  white-space: nowrap;
+  background: #EEEEEE;
+}
+TD.betscore {
+  white-space: nowrap;
+  text-align: center;
+  background: #EEEEAA;
+}
+TD.header {
+  text-align: center;
+  background: #EEEEAA;
+}
+TD.points {
+  text-align: center;
+  background: #EEEEEE;
+}
+TD.gamelistodd {
+  white-space: nowrap;
+  background: #EEEEEE;
+  vertical-align: middle;
+}
+TD.gamelisteven {
+  white-space: nowrap;
+  background: #EEEEAA;
+}
+TD.emptygame {
+  background: white;
+  border: none;
+}
+TD.emptyscore {
+  background: white;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+}
+TD.info {
+  background: white;
+  border: none;
+  font: 12px sans-serif;
+}
+
+A.navigation {
+  border:  navy medium;
+  background: navy;
+  padding: 0.3em 1em;
+  color: white;
+}
+
+A.navigation:hover {
+  background: yellow;
+  color: black;
+}
+
+IMG.flag {
+  border: solid 1px #BBBBBB;
+}
+
+DIV.move {
+  position: absolute;
+  visibility: hidden;
+}
