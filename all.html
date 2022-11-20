@@ -180,40 +180,31 @@ function Gambler(firstname,name,mode,home,away,ext) {
 
 <center>
 
-  <h1 style="color:white;font-family:verdana;font-size:35px;background-color: rgba(0, 0, 0, 0.5);padding:10px;">VM 2022</h1>
-<table class="emptygame">
-<tbody><tr><td style='border: none; padding: 5px;'>
-
-<table cellspacing="0"><tbody>
-    <script type="text/javascript">
-    for (var j = 0; j < gamblerList.length; j++) {
-      document.write("<tr>");
-      document.write("<td class='standlist' id='std"+j+"'>" + (j+1) + ". " + gamblerList[j].name + "</td>");
-      document.write("<td class='betscore' style='text-align: right' id='tot"+j+"'>"+gamblerList[j].total+"</td>");
-      document.write("</tr>");
-    }
-    </script>
-    </tbody>
-</table>
+<h1 style="color:white;font-family:verdana;font-size:35px;background-color: rgba(0, 0, 0, 0.5);padding:10px;">VM 2022</h1>
 
 <center>
-<input type='button' value='Clear' onclick='clearChanges()' title='Clears all scores you have filled in.' />
+  <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  <div id="toplist">
+    <center>
+      <table cellspacing="0"><tbody>
+        <script type="text/javascript">
+        for (var j = 0; j < gamblerList.length; j++) {
+          document.write("<tr>");
+          document.write("<td class='standlist' id='std"+j+"'>" + (j+1) + ". " + gamblerList[j].name + "</td>");
+          document.write("<td class='standlistscore' style='text-align: right' id='tot"+j+"'>"+gamblerList[j].total+"</td>");
+          document.write("</tr>");
+        }
+        </script>
+        </tbody>
+      </table>
+    </center>
+    <center>
+      <input type='button' value='Clear' onclick='clearChanges()' title='Clears all scores you have filled in.' />
+    </center>
+  </div>
 </center>
 
-</td><td STYLE='border: none; padding: 5px;'>
-
-<center>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
-</center>
-
-</td></tr></tbody>
-</table>
-
-
-
-
-
-<table cellspacing="0">
+<table cellspacing="0" id="maintable">
 <tbody><tr>
 <td rowspan=2 class="gamehead" style="border-right: none">Time</td>
 <td colspan=3 rowspan=2 class="gamehead" style="border-left: none">Game</td>

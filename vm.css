@@ -21,8 +21,14 @@ TD.gamehead {
   background: #EEEEEE;
 }
 TD.standlist {
+  font-size: 16px;
   white-space: nowrap;
   background: #EEEEEE;
+}
+TD.standlistscore {
+  font-size: 16px;
+  white-space: nowrap;
+  background: #EEEEAA;
 }
 TD.betscore {
   white-space: nowrap;
@@ -81,4 +87,28 @@ IMG.flag {
 DIV.move {
   position: absolute;
   visibility: hidden;
+}
+
+
+
+#toplist {
+  text-align: center;
+  position: relative;
+  left: -540px;
+  top: -500px;
+}
+#maintable {
+  position: relative;
+  top: -180px;
+}
+
+@media only screen and (max-width: 1200px) {
+#toplist {
+  text-align: center;
+  position: static;
+  margin: 10px;
+}
+#maintable {
+  position: static;
+}
 }
