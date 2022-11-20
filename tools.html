@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html><head>
+<!-- Based on work by Johan Linde, used without permission. Thanks! -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+<title>VM2022</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<link href="vm.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="matcher.js"></script>
+<script type="text/javascript">
+function Gambler(firstname,name,mode,home,away,ext) {
+    this.firstname=firstname;
+    this.name=name;
+    this.mode=mode;
+    this.home=home;
+    this.away=away;
+    this.ext=ext;
+  }
+  gamblerOrder = new Array();
+  gamblerList = new Array();
+  gamblerListTDB = new Array();
+  gamblerListTools = new Array();
+</script>
+<script type="text/javascript" src="bets.js"></script>
+<script type="text/javascript">
+  gamblerList = [ ...gamblerList, ...gamblerListTools ];
+</script>
+<script type="text/javascript" src="standing-johanlinde.js"></script>
+
+<script type="text/javascript">
+  function queryScore(i) {
+    let matchID = gameList[i].matchID;
+    let requestURL = 'https://match.uefa.com/v2/matches/' + matchID;
+    let request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    var gameIndex = i;
+    request.onload = function() {
+      const res = request.response;
+      if (res.hasOwnProperty("status") && res.hasOwnProperty("score")) {
+        if (res["score"].hasOwnProperty("regular")) {
+          gameList[gameIndex].homegoal = res["score"]["regular"]["home"];
+          gameList[gameIndex].awaygoal = res["score"]["regular"]["away"];
+
+          var hscore = document.getElementById("h" + gameIndex);
+          var bscore = document.getElementById("b" + gameIndex);
+          hscore.value = gameList[gameIndex].homegoal;
+          bscore.value = gameList[gameIndex].awaygoal;
+          if (res["status"] == "FINISHED" || 
+              res["phase"] == "END_SECOND_HALF" ||
+              res["phase"] == "EXTRA_TIME_FIRST_HALF" ||
+              res["phase"] == "EXTRA_TIME_BREAK" ||
+              res["phase"] == "EXTRA_TIME_SECOND_HALF" ||
+              res["phase"] == "END_EXTRA_TIME_SECOND_HALF" ||
+              res["phase"] == "PENALTY" ||
+              res.hasOwnProperty("fullTimeAt")) {
+            hscore.disabled = true;
+            bscore.disabled = true;
+            if (gameIndex < gameList.length) {
+              queryScore(gameIndex + 1);
+            }
+          }
+          updateStanding();
+        }
+      }
+    }
+  }
+
+
+  function updateScore() {
+    for (var i=0; i<gameList.length; i++) {
+      if (gameList[i].homegoal == -1) {
+        queryScore(i);
+        break;
+      }
+    }
+  }
+
+  <!-- updateScore(); -->
+</script>
+
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+
+    gl = [].concat(gamblerList);
+    gl.sort(function(x, y) {
+      if (x.total > y.total) {
+        return -1;
+      }
+      if (x.total < y.total) {
+        return 1;
+      }
+      return 0;
+    });
+
+    data.addColumn('number','Game');
+    for (var i=0; i<gl.length; i++)
+      data.addColumn('number',gl[i].name);
+    
+    data.addRows(gameList.length+1);
+
+    for (var j=0; j<gameList.length+1; j++)
+      data.setValue(j, 0, j);
+
+    for (var i=0; i<gl.length; i++)
+      data.setValue(0, i+1, 0);
+
+    var cumpts = new Array(gl.length);
+    for (var i=0; i<gl.length; i++)
+      cumpts[i] = 0;
+
+    var alltimelow = 0;
+    var alltimehigh = 0;
+
+    for (var j=0; j<gameList.length; j++) {
+
+      if (gameList[j].homegoal == -1 || gameList[j].awaygoal == -1)
+        break;
+
+      var maxpts = 0;
+      var minpts = 10000000;
+      for (var i=0; i<gl.length; i++) {
+        cumpts[i] += gl[i].points[j];
+        if (cumpts[i] > maxpts)
+          maxpts = cumpts[i];
+        if (cumpts[i] < minpts)
+          minpts = cumpts[i];
+      }
+      if (maxpts-(maxpts+minpts)/2 > alltimehigh)
+        alltimehigh = maxpts-(maxpts+minpts)/2;
+      if (minpts-(maxpts+minpts)/2 < alltimelow)
+        alltimelow = minpts-(maxpts+minpts)/2;
+
+      for (var i=0; i<gl.length; i++)
+        data.setValue(j+1, i+1, (cumpts[i]-(maxpts+minpts)/2));
+    }
+
+//    var xticks = new Array();
+//    xticks.push(0);
+//    for (var j = 1; j<gameList.length; j+=2) {
+//      if (gameList[j].homegoal == -1)
+//        break;
+//      xticks.push(j+1);
+//    }
+
+    alltimelow = Math.floor( (alltimelow-1)/2 )*2;
+    alltimehigh = Math.ceil( (alltimehigh+1)/2 )*2;
+
+//    var yticks = new Array();
+//    for (var j = alltimelow; j <= alltimehigh; j+=2)
+//      yticks.push(j);
+
+    var options = {
+      vAxis: {title: 'Awesomeness'},
+      hAxis: {title: 'Game'},
+      chartArea: {top:20, left:70, height:'85%', width:'78%'}
+    };
+
+    var formatter = new google.visualization.NumberFormat({
+      fractionDigits: 2
+    });
+    for (var i = 0; i < gl.length; i++)
+      formatter.format(data, i+1);
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>
+</head>
+<body>
+
+<center>
+
+  <h1 style="color:white;font-family:verdana;font-size:35px;background-color: rgba(0, 0, 0, 0.5);padding:10px;">VM 2022</h1>
+<table class="emptygame">
+<tbody><tr><td style='border: none; padding: 5px;'>
+
+<table cellspacing="0"><tbody>
+    <script type="text/javascript">
+    for (var j = 0; j < gamblerList.length; j++) {
+      document.write("<tr>");
+      document.write("<td class='standlist' id='std"+j+"'>" + (j+1) + ". " + gamblerList[j].name + "</td>");
+      document.write("<td class='betscore' style='text-align: right' id='tot"+j+"'>"+gamblerList[j].total+"</td>");
+      document.write("</tr>");
+    }
+    </script>
+    </tbody>
+</table>
+
+<center>
+<input type='button' value='Clear' onclick='clearChanges()' title='Clears all scores you have filled in.' />
+</center>
+
+</td><td STYLE='border: none; padding: 5px;'>
+
+<center>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+</center>
+
+</td></tr></tbody>
+</table>
+
+
+
+
+
+<table cellspacing="0">
+<tbody><tr>
+<td rowspan=2 class="gamehead" style="border-right: none">Time</td>
+<td colspan=3 rowspan=2 class="gamehead" style="border-left: none">Game</td>
+<td rowspan=2 class="gamehead">Score</td>
+<script type="text/javascript">
+for (var j = 0; j < gamblerList.length; j++) {
+  document.write("<td colspan='2' class='gamehead'>" + gamblerList[j].name + "</td>");
+}
+</script>
+</tr>
+
+<tr>
+<script type="text/javascript">
+for (var j = 0; j < gamblerList.length; j++) {
+  document.write("<td class='header'>Bet</td>");
+  document.write("<td class='header'>Pts</td>");
+}
+</script>
+</tr>
+
+<script type="text/javascript">
+
+function flagName(s) {
+  return 'flags/' + s.replace(' ','').replace('Ö','O').replace('ä','a').toLowerCase()+'_96x96.png';
+}
+
+for (var i=0; i<gameList.length; i++) {
+
+  cls = 'class="gamelist' + (((i%2)==0)?'even':'odd') + '"';
+
+  if (typeof gameList[i].title !== 'undefined') {
+//  if (i%10 == 0 && i > 1) {
+
+    document.write('</tr>');
+    document.write('<tr>');
+    document.write('<td colspan=100 style="width=100%;border:0;color:white;font-family:verdana;font-size:20px;background-color: rgba(0, 0, 0, 0.5);"">' + gameList[i].title + '</td>');
+    document.write('</tr>');
+
+    document.write('<tr>');
+    document.writeln('<td class="gamehead" style="border-right: none">Time</td>');
+    document.writeln('<td colspan=3 class="gamehead" style="border-left: none">Game</td>');
+    document.writeln('<td class="gamehead">Score</td>');
+    for (var j = 0; j < gamblerList.length; j++) {
+      document.write("<td colspan='2' class='gamehead'>" + gamblerList[j].name + "</td>");
+    }
+    document.write('</tr>');
+  }
+
+  document.write('<tr>');
+  document.write('<td '+cls+'>' + gameList[i].dateandtime + '</td>');
+
+  document.write('<td '+cls+' style="border-right: none;">');
+  document.write('<img src="'+flagName(gameList[i].home)+'" width="20" height="20"/>');
+  document.write('</td>');
+
+  document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
+  document.write(gameList[i].home + " - " + gameList[i].away);
+  document.write('</td>');
+
+  document.write('<td '+cls+' style="border-left: none; border-right: none;">');
+  document.write('<img src="'+flagName(gameList[i].away)+'" width="20" height="20"/>');
+  document.write('</td>');
+
+  if (gameList[i].homegoal == -1) {
+    document.write('<td '+cls+'>');
+    document.write('<input onBlur="updateStanding()" TYPE=text SIZE=1 ID="h' + i + '">');
+    document.write('-');
+    document.write('<input onBlur="updateStanding()" TYPE=text SIZE=1 ID="b' + i + '">');
+    document.write('</td>');
+  }
+  else {
+    document.write('<td '+cls+' style="text-align: center;">');
+    document.write(gameList[i].homegoal + " - " + gameList[i].awaygoal);
+    document.write('</td>');
+  }
+
+  for (var j = 0; j < gamblerList.length; j++) {
+    document.write("<td class='betscore' id='bs"+j+"."+i+"'>");
+    if (typeof gamblerList[j].home[i] == 'undefined' || gamblerList[j].home[i] == -1)
+      document.write("&nbsp;");
+    else {
+      document.write(gamblerList[j].home[i] + "-" + gamblerList[j].away[i]);
+      document.write(" ");
+      document.write("(" + gamblerList[j].ext[i] + ")");
+    }
+    document.write("</td>");
+
+    document.write('<td class="points" id="pt'+j+'.'+i+'">');
+    if (gamblerList[j].points[i] >= 0)
+      document.write(gamblerList[j].points[i]);
+    else
+      document.write('&nbsp;');
+    document.write('</td>')
+  }
+
+  document.write('</tr>');
+
+}
+
+</script>
+</tbody>
+</table>
+
+</center>
+
+<script type="text/javascript">
+updateStanding();
+
+</script>
+
+</body></html>
