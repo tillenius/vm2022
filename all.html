@@ -178,32 +178,31 @@ function Gambler(firstname,name,mode,home,away,ext) {
 </script>
 </head>
 <body>
-
-<center>
-
-<h1 style="color:white;font-family:verdana;font-size:35px;background-color: rgba(0, 0, 0, 0.5);padding:10px;">VM 2022</h1>
-
-<center>
-  <div id="chart_div" style="width: 900px; height: 500px;"></div>
-  <div id="toplist">
-    <center>
-      <table cellspacing="0"><tbody>
-        <script type="text/javascript">
-        for (var j = 0; j < gamblerList.length; j++) {
-          document.write("<tr>");
-          document.write("<td class='standlist' id='std"+j+"'>" + (j+1) + ". " + gamblerList[j].name + "</td>");
-          document.write("<td class='standlistscore' style='text-align: right' id='tot"+j+"'>"+gamblerList[j].total+"</td>");
-          document.write("</tr>");
-        }
-        </script>
+<h1>VM 2022</h1>
+<div id="columns">
+  <div id="left">
+    <div id="toplist">
+      <table cellspacing="0">
+        <tbody>
+          <script type="text/javascript">
+            for (var j = 0; j < gamblerList.length; j++) {
+              document.write("<tr>");
+              document.write("<td class='standlist' id='std"+j+"'>" + (j+1) + ". " + gamblerList[j].name + "</td>");
+              document.write("<td class='standlistscore' id='tot"+j+"'>"+gamblerList[j].total+"</td>");
+              document.write("</tr>");
+            }
+          </script>
         </tbody>
       </table>
-    </center>
-    <center>
       <input type='button' value='Clear' onclick='clearChanges()' title='Clears all scores you have filled in.' />
-    </center>
+    </div>
   </div>
-</center>
+  <div id="middle">
+    <div id="chart_div" style="width: 900px; height: 500px; margin: 0 auto;"></div>
+  </div>
+  <div id="right">
+  </div>
+</div>
 
 <table cellspacing="0" id="maintable">
 <tbody><tr>
@@ -309,11 +308,8 @@ for (var i=0; i<gameList.length; i++) {
 </tbody>
 </table>
 
-</center>
-
 <script type="text/javascript">
 updateStanding();
-
 </script>
 
 </body></html>
