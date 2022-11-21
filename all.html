@@ -180,7 +180,6 @@ function Gambler(firstname,name,mode,home,away,ext) {
           </script>
         </tbody>
       </table>
-      <input type='button' value='Clear' onclick='clearChanges()' title='Clears all scores you have filled in.' />
     </div>
   </div>
   <div id="middle">
@@ -194,7 +193,7 @@ function Gambler(firstname,name,mode,home,away,ext) {
 <tbody><tr>
 <td rowspan=2 class="gamehead" style="border-right: none">Time</td>
 <td colspan=3 rowspan=2 class="gamehead" style="border-left: none">Game</td>
-<td rowspan=2 class="gamehead">Score</td>
+<td rowspan=2 class="gamehead">Score <input type='button' value='X' onclick='clearChanges()' title='Clears all scores you have filled in.' /></td>
 <script type="text/javascript">
 for (var j = 0; j < gamblerList.length; j++) {
   document.write("<td colspan='2' class='gamehead'>" + gamblerList[j].name + "</td>");
