@@ -11,7 +11,7 @@ function Game(dateandtime, home, away, homegoal, awaygoal, odds1, oddsx, odds2) 
 
 gameList = new Array();
 gameList.push(new Game("20 nov 17:00", "Qatar"                 ,"Ecuador"        ,  0,  2,  3.21, 3.10,  2.49 ));
-gameList.push(new Game("21 nov 14.00", "England"               ,"Iran"           , -1, -1,  1.37, 4.65, 11.20 ));
+gameList.push(new Game("21 nov 14.00", "England"               ,"Iran"           ,  6,  2,  1.37, 4.65, 11.20 ));
 gameList.push(new Game("21 nov 17.00", "Senegal"               ,"Nederländerna"  , -1, -1,  6.10, 3.89,  1.56 ));
 gameList.push(new Game("21 nov 20.00", "USA"                   ,"Wales"          , -1, -1,  2.55, 2.99,  3.02 ));
 gameList.push(new Game("22 nov 11.00", "Argentina"             ,"Saudiarabien"   , -1, -1,  1.17, 7.35, 15.75 ));
