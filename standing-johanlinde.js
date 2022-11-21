@@ -196,7 +196,7 @@ function clearChanges() {
   for (var i=0; i<gameList.length; i++) {
     var hscore = document.getElementById("h" + i);
     var bscore = document.getElementById("b" + i);
-    if (hscore != null) {
+    if (hscore != null && ! hscore.disabled) {
       hscore.value = "";
       bscore.value = "";
       gameList[i].homegoal = -1;
