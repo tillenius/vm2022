@@ -110,9 +110,6 @@ function Gambler(firstname,name,mode,home,away,ext) {
     for (var i=0; i<gl.length; i++)
       cumpts[i] = 0;
 
-    var alltimelow = 0;
-    var alltimehigh = 0;
-
     for (var j=0; j<gameList.length; j++) {
 
       if (gameList[j].homegoal == -1 || gameList[j].awaygoal == -1)
@@ -127,29 +124,9 @@ function Gambler(firstname,name,mode,home,away,ext) {
         if (cumpts[i] < minpts)
           minpts = cumpts[i];
       }
-      if (maxpts-(maxpts+minpts)/2 > alltimehigh)
-        alltimehigh = maxpts-(maxpts+minpts)/2;
-      if (minpts-(maxpts+minpts)/2 < alltimelow)
-        alltimelow = minpts-(maxpts+minpts)/2;
-
       for (var i=0; i<gl.length; i++)
         data.setValue(j+1, i+1, (cumpts[i]-(maxpts+minpts)/2));
     }
-
-//    var xticks = new Array();
-//    xticks.push(0);
-//    for (var j = 1; j<gameList.length; j+=2) {
-//      if (gameList[j].homegoal == -1)
-//        break;
-//      xticks.push(j+1);
-//    }
-
-    alltimelow = Math.floor( (alltimelow-1)/2 )*2;
-    alltimehigh = Math.ceil( (alltimehigh+1)/2 )*2;
-
-//    var yticks = new Array();
-//    for (var j = alltimelow; j <= alltimehigh; j+=2)
-//      yticks.push(j);
 
     var options = {
       vAxis: {title: 'Awesomeness'},
