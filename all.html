@@ -70,9 +70,17 @@ function Gambler(firstname,name,mode,home,away,ext) {
 </script>
 
 <script type="text/javascript">
+  var finishedLoading = false;
   google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
+  google.setOnLoadCallback(loadDone);
+  function loadDone() {
+    finishedLoading = true;
+    drawChart();
+  }
   function drawChart() {
+    if (!finishedLoading) {
+      return;
+    }
     var data = new google.visualization.DataTable();
 
     gl = [].concat(gamblerList);
