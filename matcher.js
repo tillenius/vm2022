@@ -14,10 +14,10 @@ function Game(dateandtime, home, away, homegoal, awaygoal, odds1, oddsx, odds2, 
 }
 
 gameList = new Array();
-gameList.push(new Game("20 nov 17:00", "Qatar"                 ,"Ecuador"        ,  0,  2,  3.21, 3.10,  2.49, 400128082, "QAT","ECU", 0 ));
-gameList.push(new Game("21 nov 14.00", "England"               ,"Iran"           ,  6,  2,  1.37, 4.65, 11.20, 400235458, "ENG","IRN", 1 ));
-gameList.push(new Game("21 nov 17.00", "Senegal"               ,"Nederländerna"  ,  0,  2,  6.10, 3.89,  1.56, 400235449, "SEN","NED", 2 ));
-gameList.push(new Game("21 nov 20.00", "USA"                   ,"Wales"          ,  1,  1,  2.55, 2.99,  3.02, 400235455, "USA","WAL", 3 ));
+gameList.push(new Game("20 nov 17:00", "Qatar"                 ,"Ecuador"        , -1, -1,  3.21, 3.10,  2.49, 400128082, "QAT","ECU", 0 ));
+gameList.push(new Game("21 nov 14.00", "England"               ,"Iran"           , -1, -1,  1.37, 4.65, 11.20, 400235458, "ENG","IRN", 1 ));
+gameList.push(new Game("21 nov 17.00", "Senegal"               ,"Nederländerna"  , -1, -1,  6.10, 3.89,  1.56, 400235449, "SEN","NED", 2 ));
+gameList.push(new Game("21 nov 20.00", "USA"                   ,"Wales"          , -1, -1,  2.55, 2.99,  3.02, 400235455, "USA","WAL", 3 ));
 gameList.push(new Game("22 nov 11.00", "Argentina"             ,"Saudiarabien"   , -1, -1,  1.17, 7.35, 15.75, 400235461, "ARG","KSA", 4 ));
 gameList.push(new Game("22 nov 14.00", "Danmark"               ,"Tunisien"       , -1, -1,  1.44, 4.25,  7.45, 400235466, "DEN","TUN", 5 ));
 gameList.push(new Game("22 nov 17.00", "Mexiko"                ,"Polen"          , -1, -1,  2.81, 2.85,  2.84, 400235463, "MEX","POL", 6 ));
@@ -62,52 +62,4 @@ gameList.push(new Game("02 dec 16.00", "Ghana"                 ,"Uruguay"       
 gameList.push(new Game("02 dec 16.00", "Sydkorea"              ,"Portugal"       , -1, -1,  5.95, 4.10,  1.54, 400235490, "KOR","POR", 45 ));
 gameList.push(new Game("02 dec 20.00", "Serbien"               ,"Schweiz"        , -1, -1,  2.70, 3.22,  2.66, 400235486, "SRB","SUI", 46 ));
 gameList.push(new Game("02 dec 20.00", "Kamerun"               ,"Brasilien"      , -1, -1, 12.40, 5.95,  1.24, 400235483, "CMR","BRA", 47 ));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
