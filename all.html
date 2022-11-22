@@ -43,15 +43,12 @@ function Gambler(firstname,name,mode,home,away,ext) {
     const res = request.response;
     if (res.hasOwnProperty("Results") && res["Results"].length == gameList.length) {
       for (var i=0; i<gameList.length; i++) {
-        if (gameList[i].homegoal != -1) {
-          continue;
-        }
         r = res["Results"][gameList[i].resultidx]
         if (r.IdMatch == gameList[i].idmatch) {
           // MatchStatus 0 -- finished
           // MatchStatus 1 -- not played
           // MatchStatus 3 -- playing
-          if (r.MatchStatus != 1) { 
+          if (r.MatchStatus == 0 || r.MatchStatus == 3) { 
             gameList[i].homegoal = r["Home"]["Score"];
             gameList[i].awaygoal = r["Away"]["Score"];
             var hscore = document.getElementById("h" + i);
