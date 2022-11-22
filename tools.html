@@ -43,15 +43,12 @@ function Gambler(firstname,name,mode,home,away,ext) {
     const res = request.response;
     if (res.hasOwnProperty("Results") && res["Results"].length == gameList.length) {
       for (var i=0; i<gameList.length; i++) {
-        if (gameList[i].homegoal != -1) {
-          continue;
-        }
         r = res["Results"][gameList[i].resultidx]
         if (r.IdMatch == gameList[i].idmatch) {
           // MatchStatus 0 -- finished
           // MatchStatus 1 -- not played
           // MatchStatus 3 -- playing
-          if (r.MatchStatus != 1) { 
+          if (r.MatchStatus == 0 || r.MatchStatus == 3) { 
             gameList[i].homegoal = r["Home"]["Score"];
             gameList[i].awaygoal = r["Away"]["Score"];
             var hscore = document.getElementById("h" + i);
@@ -73,9 +70,17 @@ function Gambler(firstname,name,mode,home,away,ext) {
 </script>
 
 <script type="text/javascript">
+  var finishedLoading = false;
   google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
+  google.setOnLoadCallback(loadDone);
+  function loadDone() {
+    finishedLoading = true;
+    drawChart();
+  }
   function drawChart() {
+    if (!finishedLoading) {
+      return;
+    }
     var data = new google.visualization.DataTable();
 
     gl = [].concat(gamblerList);
@@ -105,9 +110,6 @@ function Gambler(firstname,name,mode,home,away,ext) {
     for (var i=0; i<gl.length; i++)
       cumpts[i] = 0;
 
-    var alltimelow = 0;
-    var alltimehigh = 0;
-
     for (var j=0; j<gameList.length; j++) {
 
       if (gameList[j].homegoal == -1 || gameList[j].awaygoal == -1)
@@ -122,29 +124,9 @@ function Gambler(firstname,name,mode,home,away,ext) {
         if (cumpts[i] < minpts)
           minpts = cumpts[i];
       }
-      if (maxpts-(maxpts+minpts)/2 > alltimehigh)
-        alltimehigh = maxpts-(maxpts+minpts)/2;
-      if (minpts-(maxpts+minpts)/2 < alltimelow)
-        alltimelow = minpts-(maxpts+minpts)/2;
-
       for (var i=0; i<gl.length; i++)
         data.setValue(j+1, i+1, (cumpts[i]-(maxpts+minpts)/2));
     }
-
-//    var xticks = new Array();
-//    xticks.push(0);
-//    for (var j = 1; j<gameList.length; j+=2) {
-//      if (gameList[j].homegoal == -1)
-//        break;
-//      xticks.push(j+1);
-//    }
-
-    alltimelow = Math.floor( (alltimelow-1)/2 )*2;
-    alltimehigh = Math.ceil( (alltimehigh+1)/2 )*2;
-
-//    var yticks = new Array();
-//    for (var j = alltimelow; j <= alltimehigh; j+=2)
-//      yticks.push(j);
 
     var options = {
       vAxis: {title: 'Awesomeness'},
@@ -183,7 +165,7 @@ function Gambler(firstname,name,mode,home,away,ext) {
     </div>
   </div>
   <div id="middle">
-    <div id="chart_div" style="width: 900px; height: 500px; margin: 0 auto;"></div>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </div>
   <div id="right">
   </div>
