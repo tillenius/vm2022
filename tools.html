@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <link href="vm.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="matcher.js"></script>
+<script type="text/javascript" src="slutspel1.js"></script>
 <script type="text/javascript">
 function Gambler(firstname,name,mode,home,away,ext) {
     this.firstname=firstname;
@@ -27,14 +27,14 @@ function Gambler(firstname,name,mode,home,away,ext) {
   gamblerListTDB = new Array();
   gamblerListTools = new Array();
 </script>
-<script type="text/javascript" src="bets.js"></script>
+<script type="text/javascript" src="bets-slutspel1.js"></script>
 <script type="text/javascript">
   gamblerList = [ ...gamblerList, ...gamblerListTools ];
 </script>
 <script type="text/javascript" src="standing-johanlinde.js"></script>
 
 <script type="text/javascript">
-  let requestURL = 'https://api.fifa.com/api/v3/calendar/matches?language=en&idCompetition=17&idSeason=255711&idStage=285063&count=100'
+  let requestURL = 'https://api.fifa.com/api/v3/calendar/matches?language=en&idCompetition=17&idSeason=255711&idStage=285073&count=100'
   let request = new XMLHttpRequest();
   request.open('GET', requestURL);
   request.responseType = 'json';
