@@ -46,9 +46,14 @@ function updateBet() {
   arr2 = "new Array(";
   arr3 = "new Array(";
   bad = 0;
-  for (var i=0; i<gameList.length; i++) {
-    var hscore = document.getElementById("h" + i);
-    var bscore = document.getElementById("b" + i);
+  var inew = 0;
+  for (var iorg=0; iorg<gameList.length; iorg++) {
+    if (gameList[iorg].homegoal != -1) {
+      continue;
+    }
+    var hscore = document.getElementById("h" + inew);
+    var bscore = document.getElementById("b" + inew);
+    inew = inew + 1;
     if (hscore != null) {
       var hgoal = hscore.value;
       var bgoal = bscore.value;
@@ -114,54 +119,39 @@ function flagName(s) {
   return 'flags/' + s.replace(' ','').replace('Ö','O').replace('ä','a').toLowerCase()+'_96x96.png';
 }
 
-for (var i=0; i<gameList.length; i++) {
+var i = 0;
+for (var iorg=0; iorg<gameList.length; iorg++) {
 
-  cls = 'class="gamelist' + (((i%2)==0)?'even':'odd') + '"';
+  cls = 'class="gamelist' + (((iorg%2)==0)?'even':'odd') + '"';
 
   document.write('<tr>');
-  document.write('<td '+cls+'>' + gameList[i].dateandtime + '</td>');
+  document.write('<td '+cls+'>' + gameList[iorg].dateandtime + '</td>');
 
   document.write('<td '+cls+' style="border-right: none;">');
-  document.write('<img src="'+flagName(gameList[i].home)+'" width="40" height="40"/>');
+  document.write('<img src="'+flagName(gameList[iorg].home)+'" width="40" height="40"/>');
   document.write('</td>');
 
   document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
-  document.write(gameList[i].home + " - " + gameList[i].away);
+  document.write(gameList[iorg].home + " - " + gameList[iorg].away);
   document.write('</td>');
 
   document.write('<td '+cls+' style="border-left: none; border-right: none;">');
-  document.write('<img src="'+flagName(gameList[i].away)+'" width="40" height="40"/>');
+  document.write('<img src="'+flagName(gameList[iorg].away)+'" width="40" height="40"/>');
   document.write('</td>');
 
-//  document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
-//  document.write("1: ");
-//  document.write('</td>');
-//
-//  document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
-//  document.write(gameList[i].odds1);
-//  document.write('</td>');
-//
-//  document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
-//  document.write("X: ");
-//  document.write('</td>');
-//
-//  document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
-//  document.write(gameList[i].oddsx);
-//  document.write('</td>');
-//
-//  document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
-//  document.write("2: ");
-//  document.write('</td>');
-//
-//  document.write('<td '+cls+' style="text-align: center; border-left: none; border-right: none;">');
-//  document.write(gameList[i].odds2);
-//  document.write('</td>');
-
-  document.write('<td '+cls+'>');
-  document.write('<input onBlur="updateBet()" TYPE=text SIZE=1 ID="h' + i + '">');
-  document.write('-');
-  document.write('<input onBlur="updateBet()" TYPE=text SIZE=1 ID="b' + i + '">');
-  document.write('</td>');
+  if (gameList[iorg].homegoal != -1) {
+    document.write('<td '+cls+'>');
+    document.write(gameList[iorg].homegoal + '-' + gameList[iorg].awaygoal);
+    document.write('</td>');
+  }
+  else {
+    document.write('<td '+cls+'>');
+    document.write('<input onBlur="updateBet()" TYPE=text SIZE=1 ID="h' + i + '">');
+    document.write('-');
+    document.write('<input onBlur="updateBet()" TYPE=text SIZE=1 ID="b' + i + '">');
+    document.write('</td>');
+    i = i + 1;
+  }
 
   document.write('</tr>');
 
