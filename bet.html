@@ -83,18 +83,29 @@ function updateBet() {
   var output = document.getElementById("output");
   if (bad == 0) {
     var password = document.getElementById("password").value;
-    if (String(password) == "Natt" || 
-        String(password) == "boll04" ||
-        String(password) == "qatar" ||
-        String(password) == "password" ||
-        String(password) == "secret" ||
-        String(password) == "1234" ||
-        String(password) == "123456" ||
-        String(password) == "2022" ||
-        String(password) == "vm2022" ||
-        String(password) == "wm2022" ||
-        String(password).indexOf("-final") != -1 ||
-        String(password).indexOf("final-") != -1 ) {
+    var pwlc = String(password).toLowerCase();
+    if (pwlc == "natt" || 
+        pwlc == "boll" ||
+        pwlc == "boll04" ||
+        pwlc == "boll22" ||
+        pwlc == "qatar" ||
+        pwlc == "password" ||
+        pwlc == "secret" ||
+        pwlc == "1234" ||
+        pwlc == "123456" ||
+        pwlc == "2022" ||
+        pwlc == "vm2022" ||
+        pwlc == "wm2022" ||
+        pwlc == "amospro" ||
+        pwlc == "tonfisk" ||
+        pwlc == "slutspel" ||
+        pwlc == "slutboll" ||
+        pwlc == "3090" ||
+        pwlc == "4090" ||
+        pwlc == "5090" ||
+        pwlc == "6090" ||
+        pwlc.indexOf("-final") != -1 ||
+        pwlc.indexOf("final-") != -1 ) {
       output.value = "Otillåtet lösenord."
       return;
     }
