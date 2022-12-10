@@ -41,8 +41,11 @@ function Gambler(firstname,name,mode,home,away,ext) {
   request.send();
   request.onload = function() {
     const res = request.response;
-    if (res.hasOwnProperty("Results") && res["Results"].length == gameList.length) {
+    if (res.hasOwnProperty("Results")) {
       for (var i=0; i<gameList.length; i++) {
+        if (gameList[i].homegoal != -1) {
+          continue
+        }
         r = res["Results"][gameList[i].resultidx]
         if (r.IdMatch == gameList[i].idmatch) {
           // MatchStatus 0 -- finished
