@@ -23,14 +23,14 @@ gameList.push(new Game("5 dec 20.00", "Brasilien"             ,"Sydkorea"   , 4,
 gameList.push(new Game("6 dec 16.00", "Marocko"               ,"Spanien"    , 0, 0, 0, 0, 0, 400128137, "MAR","ESP", 6 ));
 gameList.push(new Game("6 dec 20.00", "Portugal"              ,"Schweiz"    , 6, 1, 0, 0, 0, 400128130, "POR","SUI", 7 ));
 
-gameList.push(new Game(" 9 dec 16.00", "Kroatien"              ,"Brasilien"  , -1, -1, 0, 0, 0, 400128141, "CRO","BRA", 0 ));
-gameList.push(new Game(" 9 dec 20:00", "Nederländerna"         ,"Argentina"  , -1, -1, 0, 0, 0, 400128139, "NED","ARG", 1 ));
-gameList.push(new Game("10 dec 16.00", "Marocko"               ,"Portugal"   , -1, -1, 0, 0, 0, 400128140, "MAR","POR", 2 ));
-gameList.push(new Game("10 dec 20.00", "England"               ,"Frankrike"  , -1, -1, 0, 0, 0, 400128138, "ENG","FRA", 3 ));
+gameList.push(new Game(" 9 dec 16.00", "Kroatien"              ,"Brasilien"  , 1, 1, 0, 0, 0, 400128141, "CRO","BRA", 0 ));
+gameList.push(new Game(" 9 dec 20:00", "Nederländerna"         ,"Argentina"  , 2, 2, 0, 0, 0, 400128139, "NED","ARG", 1 ));
+gameList.push(new Game("10 dec 16.00", "Marocko"               ,"Portugal"   , 1, 0, 0, 0, 0, 400128140, "MAR","POR", 2 ));
+gameList.push(new Game("10 dec 20.00", "England"               ,"Frankrike"  , 1, 2, 0, 0, 0, 400128138, "ENG","FRA", 3 ));
 
 // 285075
-//gameList.push(new Game("13 dec 20.00", "W57"                   ,"W58"        , -1, -1, 0, 0, 0, 400128143, "","", 0 ));
-//gameList.push(new Game("14 dec 20:00", "W59"                   ,"W60"        , -1, -1, 0, 0, 0, 400128142, "","", 1 ));
+gameList.push(new Game("13 dec 20.00", "Argentina"             ,"Kroatien"   , -1, -1, 0, 0, 0, 400128143, "ARG","CRO", 0 ));
+gameList.push(new Game("14 dec 20:00", "Frankrike"             ,"Marocko"    , -1, -1, 0, 0, 0, 400128142, "FRA","MAR", 1 ));
 
 // 285076
 //gameList.push(new Game("17 dec 16.00", "RU61"                  ,"RU62"       , -1, -1, 0, 0, 0, 400128144, "","", 0 ));
