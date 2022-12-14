@@ -29,11 +29,11 @@ gameList.push(new Game("10 dec 16.00", "Marocko"               ,"Portugal"   , 1
 gameList.push(new Game("10 dec 20.00", "England"               ,"Frankrike"  , 1, 2, 0, 0, 0, 400128138, "ENG","FRA", 3 ));
 
 // 285075
-gameList.push(new Game("13 dec 20.00", "Argentina"             ,"Kroatien"   , -1, -1, 0, 0, 0, 400128143, "ARG","CRO", 0 ));
-gameList.push(new Game("14 dec 20:00", "Frankrike"             ,"Marocko"    , -1, -1, 0, 0, 0, 400128142, "FRA","MAR", 1 ));
+gameList.push(new Game("13 dec 20.00", "Argentina"             ,"Kroatien"   , 3, 0, 0, 0, 0, 400128143, "ARG","CRO", 0 ));
+gameList.push(new Game("14 dec 20:00", "Frankrike"             ,"Marocko"    , 2, 0, 0, 0, 0, 400128142, "FRA","MAR", 1 ));
 
 // 285076
 //gameList.push(new Game("17 dec 16.00", "RU61"                  ,"RU62"       , -1, -1, 0, 0, 0, 400128144, "","", 0 ));
 
 // 285077
-//gameList.push(new Game("18 dec 16.00", "W61"                   ,"W62"        , -1, -1, 0, 0, 0, 400128145, "","", 0 ));
+gameList.push(new Game("18 dec 16.00", "Argentina"               ,"Frankrike"  , -1, -1, 0, 0, 0, 400128145, "ARG","FRA", 0 ));
