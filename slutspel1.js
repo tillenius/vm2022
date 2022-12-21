@@ -36,4 +36,4 @@ gameList.push(new Game("14 dec 20:00", "Frankrike"             ,"Marocko"    , 2
 //gameList.push(new Game("17 dec 16.00", "RU61"                  ,"RU62"       , -1, -1, 0, 0, 0, 400128144, "","", 0 ));
 
 // 285077
-gameList.push(new Game("18 dec 16.00", "Argentina"               ,"Frankrike"  , -1, -1, 0, 0, 0, 400128145, "ARG","FRA", 0 ));
+gameList.push(new Game("18 dec 16.00", "Argentina"               ,"Frankrike"  , 3, 3, 0, 0, 0, 400128145, "ARG","FRA", 0 ));

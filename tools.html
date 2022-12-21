@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <link href="vm.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="slutspel1.js"></script>
+<script type="text/javascript" src="matcherall.js"></script>
 <script type="text/javascript">
 function Gambler(firstname,name,mode,home,away,ext) {
     this.firstname=firstname;
@@ -27,49 +27,49 @@ function Gambler(firstname,name,mode,home,away,ext) {
   gamblerListTDB = new Array();
   gamblerListTools = new Array();
 </script>
-<script type="text/javascript" src="bets-slutspel2.js"></script>
+<script type="text/javascript" src="allbets.js"></script>
 <script type="text/javascript">
   gamblerList = [ ...gamblerList, ...gamblerListTools ];
 </script>
 <script type="text/javascript" src="standing-johanlinde.js"></script>
 
 <script type="text/javascript">
-  let requestURL = 'https://api.fifa.com/api/v3/calendar/matches?language=en&idCompetition=17&idSeason=255711&idStage=285077&count=100'
-  let request = new XMLHttpRequest();
-  request.open('GET', requestURL);
-  request.responseType = 'json';
-  request.send();
-  request.onload = function() {
-    const res = request.response;
-    if (res.hasOwnProperty("Results")) {
-      for (var i=0; i<gameList.length; i++) {
-        if (gameList[i].homegoal != -1) {
-          continue
-        }
-        r = res["Results"][gameList[i].resultidx]
-        if (r.IdMatch == gameList[i].idmatch) {
-          // MatchStatus 0 -- finished
-          // MatchStatus 1 -- not played
-          // MatchStatus 3 -- playing
-          if (r.MatchStatus == 0 || r.MatchStatus == 3) { 
-            gameList[i].homegoal = r["Home"]["Score"];
-            gameList[i].awaygoal = r["Away"]["Score"];
-            var hscore = document.getElementById("h" + i);
-            var bscore = document.getElementById("b" + i);
-            if (hscore !== null && bscore !== null) {
-              hscore.value = gameList[i].homegoal;
-              bscore.value = gameList[i].awaygoal;
-              if (r.MatchStatus == 0) { // finished
-                hscore.disabled = true;
-                bscore.disabled = true;
-              }
-            }
-          }
-        }
-      }
-      updateStanding();
-    }
-  }
+//  let requestURL = 'https://api.fifa.com/api/v3/calendar/matches?language=en&idCompetition=17&idSeason=255711&idStage=285077&count=100'
+//  let request = new XMLHttpRequest();
+//  request.open('GET', requestURL);
+//  request.responseType = 'json';
+//  request.send();
+//  request.onload = function() {
+//    const res = request.response;
+//    if (res.hasOwnProperty("Results")) {
+//      for (var i=0; i<gameList.length; i++) {
+//        if (gameList[i].homegoal != -1) {
+//          continue
+//        }
+//        r = res["Results"][gameList[i].resultidx]
+//        if (r.IdMatch == gameList[i].idmatch) {
+//          // MatchStatus 0 -- finished
+//          // MatchStatus 1 -- not played
+//          // MatchStatus 3 -- playing
+//          if (r.MatchStatus == 0 || r.MatchStatus == 3) { 
+//            gameList[i].homegoal = r["Home"]["Score"];
+//            gameList[i].awaygoal = r["Away"]["Score"];
+//            var hscore = document.getElementById("h" + i);
+//            var bscore = document.getElementById("b" + i);
+//            if (hscore !== null && bscore !== null) {
+//              hscore.value = gameList[i].homegoal;
+//              bscore.value = gameList[i].awaygoal;
+//              if (r.MatchStatus == 0) { // finished
+//                hscore.disabled = true;
+//                bscore.disabled = true;
+//              }
+//            }
+//          }
+//        }
+//      }
+//      updateStanding();
+//    }
+//  }
 </script>
 
 <script type="text/javascript">
